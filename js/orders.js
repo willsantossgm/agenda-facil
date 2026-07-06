@@ -56,14 +56,25 @@ document.addEventListener('DOMContentLoaded', () => {
         statusOptions += `<option value="${s}" ${order.status === s ? 'selected' : ''}>${displayLabel}</option>`;
       });
 
+      let customerDetails = `
+        <div class="flex flex-col">
+          <span style="font-weight:600;">${order.customerName}</span>
+          <span class="text-dim" style="font-size:0.8rem;">📱 ${order.customerPhone}</span>
+      `;
+      if (order.deliveryType) {
+        customerDetails += `<span class="badge ${order.deliveryType === 'entrega' ? 'badge-info' : 'badge-success'}" style="font-size:0.65rem; margin-top:0.25rem; width:fit-content;">${order.deliveryType === 'entrega' ? '🛵 Entrega' : '🏪 Retirada'}</span>`;
+        if (order.deliveryType === 'entrega' && order.deliveryAddress) {
+          customerDetails += `<span class="text-muted" style="font-size:0.75rem; margin-top:0.15rem; max-width:200px; display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${order.deliveryAddress}">📍 ${order.deliveryAddress}</span>`;
+        }
+      } else if (order.vehicleModel) {
+        customerDetails += `<span class="text-muted" style="font-size:0.75rem; margin-top:0.25rem;">🚗 ${order.vehicleModel} (${order.vehicleSize})</span>`;
+        customerDetails += `<span class="badge badge-info" style="font-size:0.65rem; margin-top:0.15rem; width:fit-content; text-transform:uppercase;">Placa: ${order.vehiclePlate}</span>`;
+      }
+      customerDetails += `</div>`;
+
       tr.innerHTML = `
         <td style="font-weight:700;">#${order.id}</td>
-        <td>
-          <div class="flex flex-col">
-            <span style="font-weight:600;">${order.customerName}</span>
-            <span class="text-dim" style="font-size:0.8rem;">📱 ${order.customerPhone}</span>
-          </div>
-        </td>
+        <td>${customerDetails}</td>
         <td>${typeBadge}</td>
         <td style="font-size:0.875rem; line-height:1.4;">${dateTimeFormatted}</td>
         <td style="font-size:0.875rem; font-weight:500; line-height:1.4;">

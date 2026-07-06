@@ -254,12 +254,18 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="config-type">Tipo de Estabelecimento</label>
+              <label class="form-label" for="config-type">Nicho / Segmento do Estabelecimento</label>
               <select class="form-input form-select" id="config-type" required>
-                <option value="barbearia">Serviços / Barbearia / Salão</option>
-                <option value="lanchonete">Alimentação / Lanchonete / Delivery</option>
-                <option value="ambos">Ambos (Serviços e Venda de Lanches/Produtos)</option>
+                <option value="beleza">Beleza / Barbearia / Salão</option>
+                <option value="comida">Alimentação / Lanchonete / Restaurante</option>
+                <option value="automotivo">Automotivo / Lava Rápido / Estética</option>
               </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.5rem; background: rgba(124, 58, 237, 0.05); padding: 1rem; border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+              <span class="form-label" style="font-weight:600; color:var(--primary-light);">Simulador de Demonstração</span>
+              <p class="text-dim" style="font-size:0.8rem; margin-bottom: 0.75rem;">Você pode trocar o nicho acima e clicar abaixo para limpar os dados atuais e preencher o app com produtos e agendamentos de teste prontos.</p>
+              <button type="button" class="btn btn-outline btn-sm" id="btn-load-niche-demo">⚡ Carregar dados de exemplo deste Nicho</button>
             </div>
 
             <div class="form-group">

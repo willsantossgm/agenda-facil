@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clientName: document.getElementById('client-name'),
     clientPhone: document.getElementById('client-phone'),
     clientNotes: document.getElementById('client-notes'),
+    nicheFieldsContainer: document.getElementById('niche-fields-container'),
     btnCheckout: document.getElementById('btn-checkout')
   };
 
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderStoreInfo();
     renderCategories();
     renderProducts();
+    renderNicheFields();
     setupEvents();
     setupDateLimits();
   }
@@ -49,7 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.storeName.textContent = config.businessName;
     elements.storeHours.textContent = `🕒 ${config.hours}`;
     elements.storeAddress.textContent = `📍 ${config.address}`;
-    elements.storeCoverImg.src = config.coverImage;
+    if (config.coverImage) {
+      elements.storeCoverImg.src = config.coverImage;
+    }
     elements.btnMap.href = `https://maps.google.com/?q=${encodeURIComponent(config.address)}`;
   }
 
@@ -121,6 +125,67 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Injeta campos condicionais no formulário de dados do cliente dependendo do nicho
+  function renderNicheFields() {
+    const container = elements.nicheFieldsContainer;
+    container.innerHTML = '';
+    const type = state.config.businessType;
+
+    if (type === 'comida') {
+      container.innerHTML = `
+        <div class="form-group">
+          <label class="form-label" for="delivery-type">Tipo de Pedido</label>
+          <select class="form-input form-select" id="delivery-type" required>
+            <option value="retirada">Retirar no Local</option>
+            <option value="entrega">Entrega em Domicílio</option>
+          </select>
+        </div>
+        <div class="form-group" id="delivery-address-group" style="display: none;">
+          <label class="form-label" for="delivery-address">Endereço de Entrega</label>
+          <input type="text" class="form-input" id="delivery-address" placeholder="Rua, número, bairro e apto">
+        </div>
+      `;
+
+      // Evento para exibir/ocultar endereço de entrega
+      const deliverySelect = document.getElementById('delivery-type');
+      const addressGroup = document.getElementById('delivery-address-group');
+      const addressInput = document.getElementById('delivery-address');
+
+      deliverySelect.addEventListener('change', (e) => {
+        if (e.target.value === 'entrega') {
+          addressGroup.style.display = 'block';
+          addressInput.setAttribute('required', 'true');
+        } else {
+          addressGroup.style.display = 'none';
+          addressInput.removeAttribute('required');
+          addressInput.value = '';
+        }
+      });
+
+    } else if (type === 'automotivo') {
+      container.innerHTML = `
+        <div class="flex gap-4">
+          <div class="form-group flex-1">
+            <label class="form-label" for="vehicle-model">Modelo do Veículo</label>
+            <input type="text" class="form-input" id="vehicle-model" placeholder="Ex: Corolla Preto" required>
+          </div>
+          <div class="form-group flex-1">
+            <label class="form-label" for="vehicle-plate">Placa</label>
+            <input type="text" class="form-input" id="vehicle-plate" placeholder="Ex: ABC-1234" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="vehicle-size">Tamanho/Porte do Veículo</label>
+          <select class="form-input form-select" id="vehicle-size" required>
+            <option value="Passeio">Carro de Passeio (Hatch / Sedan)</option>
+            <option value="SUV">SUV / Caminhonete / Van</option>
+            <option value="Moto">Motocicleta</option>
+          </select>
+        </div>
+      `;
+    }
+  }
+
   // Lógica do Carrinho
   function addToCart(productId) {
     const product = state.products.find(p => p.id === productId);
@@ -155,14 +220,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateCart() {
-    // Conta total de itens e valor
     const totalCount = state.cart.reduce((acc, item) => acc + item.quantity, 0);
     const totalPrice = state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
     elements.cartCounter.textContent = totalCount;
     elements.cartTotalValue.textContent = totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-    // Renderiza itens
     elements.cartItemsList.innerHTML = '';
     if (state.cart.length === 0) {
       elements.cartItemsList.innerHTML = `<div class="text-center text-muted p-8">Seu carrinho está vazio.</div>`;
@@ -173,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
     state.cart.forEach(item => {
       const itemEl = document.createElement('div');
       itemEl.className = 'cart-item';
-      
       const itemTotal = (item.price * item.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
       itemEl.innerHTML = `
@@ -193,24 +255,28 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.cartItemsList.appendChild(itemEl);
     });
 
-    // Mostra/oculta seção de agendamento se tiver serviços no carrinho
-    const hasService = state.cart.some(item => item.type === 'servico');
-    elements.schedulerSection.style.display = hasService ? 'block' : 'none';
-    if (hasService && !elements.bookingDate.value) {
-      // Define a data como amanhã por padrão
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      elements.bookingDate.value = tomorrow.toISOString().split('T')[0];
-      generateTimeSlots();
+    // Se for nicho 'comida', não existe agendamento de horários (tudo é entrega/retirada imediata)
+    const type = state.config.businessType;
+    if (type === 'comida') {
+      elements.schedulerSection.style.display = 'none';
+    } else {
+      // Nos outros nichos, exibe agendamento se houver qualquer serviço no carrinho
+      const hasService = state.cart.some(item => item.type === 'servico');
+      elements.schedulerSection.style.display = hasService ? 'block' : 'none';
+      
+      if (hasService && !elements.bookingDate.value) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        elements.bookingDate.value = tomorrow.toISOString().split('T')[0];
+        generateTimeSlots();
+      }
     }
   }
 
-  // Expõe a função de atualização de quantidade de forma global para funcionar com o onclick
   window.updateQty = (id, delta) => {
     updateQuantity(id, delta);
   };
 
-  // Controle de abertura/fechamento do painel do carrinho
   function openCart() {
     elements.cartOverlay.classList.add('active');
     elements.cartDrawer.classList.add('active');
@@ -221,27 +287,22 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.cartDrawer.classList.remove('active');
   }
 
-  // Gera horários fictícios de agendamento excluindo horários que já foram marcados
   function generateTimeSlots() {
     const selectedDate = elements.bookingDate.value;
     if (!selectedDate) return;
 
     elements.bookingTime.innerHTML = '<option value="">Carregando horários...</option>';
 
-    // Lista completa de horários padrão
     const allSlots = [
-      '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
-      '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00',
-      '17:30', '18:00', '18:30', '19:00', '19:30'
+      '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
+      '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00'
     ];
 
-    // Busca agendamentos salvos na store para essa data
     const orders = window.store.getOrders();
     const busySlots = orders
       .filter(o => o.type === 'agendamento' && o.date === selectedDate && o.status !== 'Cancelado')
       .map(o => o.time);
 
-    // Filtra slots livres
     const freeSlots = allSlots.filter(slot => !busySlots.includes(slot));
 
     elements.bookingTime.innerHTML = '';
@@ -258,7 +319,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Define limites para o input date (não marcar no passado, no máximo 30 dias à frente)
   function setupDateLimits() {
     const today = new Date().toISOString().split('T')[0];
     elements.bookingDate.min = today;
@@ -268,18 +328,15 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.bookingDate.max = maxDate.toISOString().split('T')[0];
   }
 
-  // Configuração de eventos
   function setupEvents() {
     elements.btnOpenCart.addEventListener('click', openCart);
     elements.btnCloseCart.addEventListener('click', closeCart);
     elements.cartOverlay.addEventListener('click', closeCart);
-    
     elements.bookingDate.addEventListener('change', generateTimeSlots);
-    
     elements.btnCheckout.addEventListener('click', handleCheckout);
   }
 
-  // Fluxo de Confirmação e Checkout WhatsApp
+  // Fluxo de Checkout e envio de mensagens estruturadas para o WhatsApp
   function handleCheckout() {
     if (state.cart.length === 0) {
       alert('Seu carrinho está vazio.');
@@ -295,22 +352,55 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const type = state.config.businessType;
     const hasService = state.cart.some(item => item.type === 'servico');
     const date = elements.bookingDate.value;
     const time = elements.bookingTime.value;
 
-    if (hasService && (!date || !time)) {
-      alert('Por favor, escolha uma data e horário válidos para o agendamento.');
-      return;
+    // Validações específicas por nicho
+    let deliveryType = '';
+    let deliveryAddress = '';
+    let vehicleModel = '';
+    let vehiclePlate = '';
+    let vehicleSize = '';
+
+    if (type === 'comida') {
+      deliveryType = document.getElementById('delivery-type').value;
+      if (deliveryType === 'entrega') {
+        deliveryAddress = document.getElementById('delivery-address').value.trim();
+        if (!deliveryAddress) {
+          alert('Por favor, digite o endereço completo para entrega.');
+          return;
+        }
+      }
+    } else if (type === 'automotivo') {
+      vehicleModel = document.getElementById('vehicle-model').value.trim();
+      vehiclePlate = document.getElementById('vehicle-plate').value.trim();
+      vehicleSize = document.getElementById('vehicle-size').value;
+
+      if (!vehicleModel || !vehiclePlate) {
+        alert('Por favor, preencha o modelo e a placa do veículo.');
+        return;
+      }
+      if (hasService && (!date || !time)) {
+        alert('Por favor, selecione data e horário válidos para a lavagem.');
+        return;
+      }
+    } else {
+      // Beleza
+      if (hasService && (!date || !time)) {
+        alert('Por favor, selecione data e horário válidos para o agendamento.');
+        return;
+      }
     }
 
     const total = state.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
-    // Cria a estrutura do pedido na Store
+    // Cria a estrutura do pedido na Store local
     const newOrder = {
       customerName: name,
       customerPhone: phone,
-      type: hasService ? 'agendamento' : 'pedido',
+      type: (type === 'comida') ? 'pedido' : 'agendamento',
       status: 'Pendente',
       notes: notes,
       items: state.cart.map(item => ({
@@ -322,34 +412,68 @@ document.addEventListener('DOMContentLoaded', () => {
       total: total
     };
 
-    if (hasService) {
+    // Anexa dados específicos do agendamento
+    if (type !== 'comida' && hasService) {
       newOrder.date = date;
       newOrder.time = time;
+    }
+
+    // Anexa dados extras de nicho
+    if (type === 'comida') {
+      newOrder.deliveryType = deliveryType;
+      newOrder.deliveryAddress = deliveryAddress;
+    } else if (type === 'automotivo') {
+      newOrder.vehicleModel = vehicleModel;
+      newOrder.vehiclePlate = vehiclePlate;
+      newOrder.vehicleSize = vehicleSize;
     }
 
     // Salva na store localmente
     window.store.addOrder(newOrder);
 
-    // Monta a mensagem para o WhatsApp do lojista
-    let message = `*Olá, gostaria de confirmar um ${hasService ? 'agendamento' : 'pedido'}!*\n\n`;
-    message += `👤 *Nome:* ${name}\n`;
-    message += `📞 *Telefone:* ${phone}\n`;
+    // Formata a mensagem para o WhatsApp baseado no nicho do estabelecimento
+    let message = '';
     
-    if (hasService) {
-      const [ano, mes, dia] = date.split('-');
-      message += `📅 *Data:* ${dia}/${mes}/${ano}\n`;
-      message += `⏱️ *Horário:* ${time}\n`;
+    if (type === 'comida') {
+      message = `*🍔 NOVO PEDIDO - ${state.config.businessName}*\n\n`;
+      message += `👤 *Cliente:* ${name}\n`;
+      message += `📞 *WhatsApp:* ${phone}\n`;
+      message += `🛵 *Tipo de Pedido:* ${deliveryType === 'entrega' ? 'Entrega em Domicílio' : 'Retirada no Local'}\n`;
+      if (deliveryType === 'entrega') {
+        message += `📍 *Endereço:* ${deliveryAddress}\n`;
+      }
+    } else if (type === 'automotivo') {
+      message = `*🚗 NOVO AGENDAMENTO DE LAVAGEM - ${state.config.businessName}*\n\n`;
+      message += `👤 *Cliente:* ${name}\n`;
+      message += `📞 *WhatsApp:* ${phone}\n`;
+      message += `🚘 *Veículo:* ${vehicleModel} (${vehicleSize})\n`;
+      message += `🔢 *Placa:* ${vehiclePlate.toUpperCase()}\n`;
+      if (hasService) {
+        const [ano, mes, dia] = date.split('-');
+        message += `📅 *Data:* ${dia}/${mes}/${ano}\n`;
+        message += `⏱️ *Horário:* ${time}\n`;
+      }
+    } else {
+      // Beleza
+      message = `*💇 NOVO AGENDAMENTO - ${state.config.businessName}*\n\n`;
+      message += `👤 *Cliente:* ${name}\n`;
+      message += `📞 *WhatsApp:* ${phone}\n`;
+      if (hasService) {
+        const [ano, mes, dia] = date.split('-');
+        message += `📅 *Data:* ${dia}/${mes}/${ano}\n`;
+        message += `⏱️ *Horário:* ${time}\n`;
+      }
     }
 
-    message += `\n🛒 *Itens:* \n`;
+    message += `\n🛒 *Itens do Pedido:* \n`;
     state.cart.forEach(item => {
       message += `• ${item.quantity}x ${item.name} (${item.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })})\n`;
     });
 
-    message += `\n💰 *Total:* ${total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}\n`;
+    message += `\n💰 *Total Geral:* ${total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}\n`;
     
     if (notes) {
-      message += `\n📝 *Obs:* ${notes}\n`;
+      message += `\n📝 *Observações:* ${notes}\n`;
     }
 
     // Limpa o carrinho
@@ -361,11 +485,11 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.clientPhone.value = '';
     elements.clientNotes.value = '';
 
-    // Abre o link do WhatsApp para envio (envia para o número do estabelecimento cadastrado)
+    // Redireciona para o WhatsApp
     const storeWhatsapp = state.config.whatsapp.replace(/\D/g, '');
     const whatsappUrl = `https://api.whatsapp.com/send?phone=55${storeWhatsapp}&text=${encodeURIComponent(message)}`;
     
-    alert('Pedido registrado no sistema! Você será redirecionado para o WhatsApp para confirmar.');
+    alert('Pedido registrado com sucesso no sistema! Redirecionando para o WhatsApp para confirmar com o lojista...');
     window.open(whatsappUrl, '_blank');
   }
 

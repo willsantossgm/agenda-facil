@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
     configWhatsapp: document.getElementById('config-whatsapp'),
     configAddress: document.getElementById('config-address'),
     configHours: document.getElementById('config-hours'),
-    configCoverUrl: document.getElementById('config-cover-url')
+    configCoverUrl: document.getElementById('config-cover-url'),
+    btnLoadNicheDemo: document.getElementById('btn-load-niche-demo')
   };
 
   // Títulos e subtítulos amigáveis por aba
@@ -122,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function setupConfigForm() {
     const config = state.config;
     elements.configName.value = config.businessName || '';
-    elements.configType.value = config.businessType || 'ambos';
+    elements.configType.value = config.businessType || 'beleza';
     elements.configWhatsapp.value = config.whatsapp || '';
     elements.configAddress.value = config.address || '';
     elements.configHours.value = config.hours || '';
@@ -142,6 +143,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       window.store.saveConfig(newConfig);
       alert('Configurações salvas com sucesso!');
+      window.location.reload(); // Recarrega para reaplicar o nicho no dashboard
+    });
+
+    // Botão de carregar dados de demonstração rápida
+    elements.btnLoadNicheDemo.addEventListener('click', () => {
+      const nichoSelecionado = elements.configType.value;
+      let label = "Beleza / Barbearia";
+      if (nichoSelecionado === 'comida') label = "Alimentação / Lanchonete";
+      if (nichoSelecionado === 'automotivo') label = "Lava Rápido / Estética";
+
+      if (confirm(`Deseja limpar os dados atuais e carregar os produtos, clientes e pedidos de demonstração do nicho: ${label}?`)) {
+        window.store.resetToDefaultData(nichoSelecionado);
+        alert('Dados de simulação carregados! A página será reiniciada.');
+        window.location.reload();
+      }
     });
   }
 
@@ -149,19 +165,34 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateDashboardKPIs() {
     const orders = window.store.getOrders();
     const customers = window.store.getCustomers();
+    const type = state.config.businessType;
 
     // Faturamento: Soma pedidos confirmados (Pronto/Entregue/Confirmado/Preparando)
     const activeOrders = orders.filter(o => o.status !== 'Cancelado');
     const totalRev = activeOrders.reduce((acc, o) => acc + o.total, 0);
     
-    // Agendamentos de hoje
+    // Filtros por data de hoje
     const todayStr = new Date().toISOString().split('T')[0];
-    const bookingsToday = orders.filter(o => o.type === 'agendamento' && o.date === todayStr && o.status !== 'Cancelado');
+    
+    // Agendamentos/Pedidos do dia
+    const todayOrders = orders.filter(o => o.date === todayStr && o.status !== 'Cancelado');
+
+    // Altera a label do 4º KPI dinamicamente
+    const kpiTitleEl = elements.kpiBookings.previousElementSibling;
+    if (type === 'comida') {
+      kpiTitleEl.textContent = 'Pedidos de Hoje';
+      elements.kpiBookings.textContent = todayOrders.length;
+    } else if (type === 'automotivo') {
+      kpiTitleEl.textContent = 'Lavagens de Hoje';
+      elements.kpiBookings.textContent = todayOrders.filter(o => o.type === 'agendamento').length;
+    } else {
+      kpiTitleEl.textContent = 'Agendamentos Hoje';
+      elements.kpiBookings.textContent = todayOrders.filter(o => o.type === 'agendamento').length;
+    }
 
     elements.kpiRevenue.textContent = totalRev.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     elements.kpiOrders.textContent = orders.length;
     elements.kpiCustomers.textContent = customers.length;
-    elements.kpiBookings.textContent = bookingsToday.length;
   }
 
   // Lista os pedidos recentes na home do painel admin
