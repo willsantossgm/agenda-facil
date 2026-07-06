@@ -69,6 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (order.vehicleModel) {
         customerDetails += `<span class="text-muted" style="font-size:0.75rem; margin-top:0.25rem;">🚗 ${order.vehicleModel} (${order.vehicleSize})</span>`;
         customerDetails += `<span class="badge badge-info" style="font-size:0.65rem; margin-top:0.15rem; width:fit-content; text-transform:uppercase;">Placa: ${order.vehiclePlate}</span>`;
+      } else if (order.patientCpf) {
+        customerDetails += `<span class="text-muted" style="font-size:0.75rem; margin-top:0.25rem;">📄 CPF: ${order.patientCpf}</span>`;
+        customerDetails += `<span class="badge badge-info" style="font-size:0.65rem; margin-top:0.15rem; width:fit-content;">🏥 ${order.medicalInsurance}</span>`;
       }
       customerDetails += `</div>`;
 

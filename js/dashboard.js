@@ -152,6 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
       let label = "Beleza / Barbearia";
       if (nichoSelecionado === 'comida') label = "Alimentação / Lanchonete";
       if (nichoSelecionado === 'automotivo') label = "Lava Rápido / Estética";
+      if (nichoSelecionado === 'salao') label = "Salão Feminino (Unha/Cabelo)";
+      if (nichoSelecionado === 'dentista') label = "Consultório Dentário / Clínicas";
 
       if (confirm(`Deseja limpar os dados atuais e carregar os produtos, clientes e pedidos de demonstração do nicho: ${label}?`)) {
         window.store.resetToDefaultData(nichoSelecionado);
@@ -184,6 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.kpiBookings.textContent = todayOrders.length;
     } else if (type === 'automotivo') {
       kpiTitleEl.textContent = 'Lavagens de Hoje';
+      elements.kpiBookings.textContent = todayOrders.filter(o => o.type === 'agendamento').length;
+    } else if (type === 'dentista') {
+      kpiTitleEl.textContent = 'Consultas de Hoje';
       elements.kpiBookings.textContent = todayOrders.filter(o => o.type === 'agendamento').length;
     } else {
       kpiTitleEl.textContent = 'Agendamentos Hoje';

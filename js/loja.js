@@ -146,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
 
-      // Evento para exibir/ocultar endereço de entrega
       const deliverySelect = document.getElementById('delivery-type');
       const addressGroup = document.getElementById('delivery-address-group');
       const addressInput = document.getElementById('delivery-address');
@@ -180,6 +179,23 @@ document.addEventListener('DOMContentLoaded', () => {
             <option value="Passeio">Carro de Passeio (Hatch / Sedan)</option>
             <option value="SUV">SUV / Caminhonete / Van</option>
             <option value="Moto">Motocicleta</option>
+          </select>
+        </div>
+      `;
+    } else if (type === 'dentista') {
+      container.innerHTML = `
+        <div class="form-group">
+          <label class="form-label" for="patient-cpf">CPF do Paciente</label>
+          <input type="text" class="form-input" id="patient-cpf" placeholder="Ex: 000.000.000-00" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="medical-insurance">Convênio Médico / Plano</label>
+          <select class="form-input form-select" id="medical-insurance" required>
+            <option value="Particular">Particular (Sem Convênio)</option>
+            <option value="Unimed">Unimed</option>
+            <option value="Amil">Amil</option>
+            <option value="SulAmérica">SulAmérica</option>
+            <option value="Bradesco Saúde">Bradesco Saúde</option>
           </select>
         </div>
       `;
@@ -255,12 +271,10 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.cartItemsList.appendChild(itemEl);
     });
 
-    // Se for nicho 'comida', não existe agendamento de horários (tudo é entrega/retirada imediata)
     const type = state.config.businessType;
     if (type === 'comida') {
       elements.schedulerSection.style.display = 'none';
     } else {
-      // Nos outros nichos, exibe agendamento se houver qualquer serviço no carrinho
       const hasService = state.cart.some(item => item.type === 'servico');
       elements.schedulerSection.style.display = hasService ? 'block' : 'none';
       
@@ -357,12 +371,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const date = elements.bookingDate.value;
     const time = elements.bookingTime.value;
 
-    // Validações específicas por nicho
     let deliveryType = '';
     let deliveryAddress = '';
     let vehicleModel = '';
     let vehiclePlate = '';
     let vehicleSize = '';
+    let patientCpf = '';
+    let medicalInsurance = '';
 
     if (type === 'comida') {
       deliveryType = document.getElementById('delivery-type').value;
@@ -386,8 +401,19 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Por favor, selecione data e horário válidos para a lavagem.');
         return;
       }
+    } else if (type === 'dentista') {
+      patientCpf = document.getElementById('patient-cpf').value.trim();
+      medicalInsurance = document.getElementById('medical-insurance').value;
+
+      if (!patientCpf) {
+        alert('Por favor, preencha o CPF do paciente.');
+        return;
+      }
+      if (hasService && (!date || !time)) {
+        alert('Por favor, selecione data e horário válidos para a consulta.');
+        return;
+      }
     } else {
-      // Beleza
       if (hasService && (!date || !time)) {
         alert('Por favor, selecione data e horário válidos para o agendamento.');
         return;
@@ -412,13 +438,11 @@ document.addEventListener('DOMContentLoaded', () => {
       total: total
     };
 
-    // Anexa dados específicos do agendamento
     if (type !== 'comida' && hasService) {
       newOrder.date = date;
       newOrder.time = time;
     }
 
-    // Anexa dados extras de nicho
     if (type === 'comida') {
       newOrder.deliveryType = deliveryType;
       newOrder.deliveryAddress = deliveryAddress;
@@ -426,9 +450,11 @@ document.addEventListener('DOMContentLoaded', () => {
       newOrder.vehicleModel = vehicleModel;
       newOrder.vehiclePlate = vehiclePlate;
       newOrder.vehicleSize = vehicleSize;
+    } else if (type === 'dentista') {
+      newOrder.patientCpf = patientCpf;
+      newOrder.medicalInsurance = medicalInsurance;
     }
 
-    // Salva na store localmente
     window.store.addOrder(newOrder);
 
     // Formata a mensagem para o WhatsApp baseado no nicho do estabelecimento
@@ -453,8 +479,27 @@ document.addEventListener('DOMContentLoaded', () => {
         message += `📅 *Data:* ${dia}/${mes}/${ano}\n`;
         message += `⏱️ *Horário:* ${time}\n`;
       }
+    } else if (type === 'dentista') {
+      message = `*🦷 NOVA CONSULTA ODONTOLÓGICA - ${state.config.businessName}*\n\n`;
+      message += `👤 *Paciente:* ${name}\n`;
+      message += `📞 *WhatsApp:* ${phone}\n`;
+      message += `📄 *CPF:* ${patientCpf}\n`;
+      message += `🏥 *Convênio:* ${medicalInsurance}\n`;
+      if (hasService) {
+        const [ano, mes, dia] = date.split('-');
+        message += `📅 *Data:* ${dia}/${mes}/${ano}\n`;
+        message += `⏱️ *Horário:* ${time}\n`;
+      }
+    } else if (type === 'salao') {
+      message = `*💇 NOVO AGENDAMENTO SALÃO - ${state.config.businessName}*\n\n`;
+      message += `👤 *Cliente:* ${name}\n`;
+      message += `📞 *WhatsApp:* ${phone}\n`;
+      if (hasService) {
+        const [ano, mes, dia] = date.split('-');
+        message += `📅 *Data:* ${dia}/${mes}/${ano}\n`;
+        message += `⏱️ *Horário:* ${time}\n`;
+      }
     } else {
-      // Beleza
       message = `*💇 NOVO AGENDAMENTO - ${state.config.businessName}*\n\n`;
       message += `👤 *Cliente:* ${name}\n`;
       message += `📞 *WhatsApp:* ${phone}\n`;
@@ -476,7 +521,6 @@ document.addEventListener('DOMContentLoaded', () => {
       message += `\n📝 *Observações:* ${notes}\n`;
     }
 
-    // Limpa o carrinho
     state.cart = [];
     updateCart();
     closeCart();
@@ -485,7 +529,6 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.clientPhone.value = '';
     elements.clientNotes.value = '';
 
-    // Redireciona para o WhatsApp
     const storeWhatsapp = state.config.whatsapp.replace(/\D/g, '');
     const whatsappUrl = `https://api.whatsapp.com/send?phone=55${storeWhatsapp}&text=${encodeURIComponent(message)}`;
     

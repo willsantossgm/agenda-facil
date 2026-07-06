@@ -267,6 +267,121 @@ class Store {
         }
       ];
 
+    } else if (nicho === 'salao') {
+      config = {
+        businessName: 'Studio Beauty & Hair Glam',
+        phone: '11988881111',
+        whatsapp: '11988881111',
+        address: 'Rua Oscar Freire, 800 - Jardins, São Paulo - SP',
+        hours: 'Ter a Sáb das 09:00 às 19:00',
+        businessType: 'salao',
+        coverImage: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1200&auto=format&fit=crop&q=80'
+      };
+
+      products = [
+        { id: 'p401', name: 'Escova Hidratante', price: 70.00, type: 'servico', category: 'Cabelo', duration: 40, desc: 'Lavagem especial com shampoo de nutrição, hidratação profunda e escova modeladora.', image: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=500&auto=format&fit=crop&q=60' },
+        { id: 'p402', name: 'Pé e Mão (Combo)', price: 55.00, type: 'servico', category: 'Unhas', duration: 60, desc: 'Cutilagem completa, esmaltação com marcas premium e massagem hidratante.', image: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=500&auto=format&fit=crop&q=60' },
+        { id: 'p403', name: 'Design de Sobrancelha', price: 30.00, type: 'servico', category: 'Estética', duration: 30, desc: 'Mapeamento facial para alinhamento e design perfeito com pinça.', image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&auto=format&fit=crop&q=60' },
+        { id: 'p404', name: 'Corte de Cabelo Feminino', price: 80.00, type: 'servico', category: 'Cabelo', duration: 50, desc: 'Corte moderno baseado em visagismo com lavagem e secagem inclusas.', image: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=500&auto=format&fit=crop&q=60' },
+        { id: 'p405', name: 'Óleo Reparador de Pontas', price: 35.00, type: 'produto', category: 'Produtos', desc: 'Óleo finalizador com Argan e Queratina para redução de frizz e brilho (60ml).', image: 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=500&auto=format&fit=crop&q=60' }
+      ];
+
+      customers = [
+        { id: 'c401', name: 'Amanda Souza', phone: '11977771111', email: 'amanda@email.com', ordersCount: 2, totalSpent: 125.00 },
+        { id: 'c402', name: 'Camila Rocha', phone: '11966662222', email: 'camila@email.com', ordersCount: 1, totalSpent: 55.00 }
+      ];
+
+      orders = [
+        {
+          id: 'o401',
+          customerName: 'Amanda Souza',
+          customerPhone: '11977771111',
+          type: 'agendamento',
+          status: 'Pronto',
+          date: today,
+          time: '11:00',
+          items: [
+            { id: 'p401', name: 'Escova Hidratante', price: 70.00, quantity: 1 },
+            { id: 'p402', name: 'Pé e Mão (Combo)', price: 55.00, quantity: 1 }
+          ],
+          total: 125.00,
+          notes: ''
+        },
+        {
+          id: 'o402',
+          customerName: 'Camila Rocha',
+          customerPhone: '11966662222',
+          type: 'agendamento',
+          status: 'Pendente',
+          date: tomorrow,
+          time: '15:00',
+          items: [
+            { id: 'p402', name: 'Pé e Mão (Combo)', price: 55.00, quantity: 1 }
+          ],
+          total: 55.00,
+          notes: 'Deseja esmalte vermelho.'
+        }
+      ];
+
+    } else if (nicho === 'dentista') {
+      config = {
+        businessName: 'OdontoClean Clínica Odontológica',
+        phone: '11988880000',
+        whatsapp: '11988880000',
+        address: 'Av. Brigadeiro Luís Antônio, 3000 - Jardim Paulista, São Paulo - SP',
+        hours: 'Seg a Sex das 08:30 às 18:30',
+        businessType: 'dentista',
+        coverImage: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&auto=format&fit=crop&q=80'
+      };
+
+      products = [
+        { id: 'p501', name: 'Limpeza Profilaxia', price: 120.00, type: 'servico', category: 'Prevenção', duration: 40, desc: 'Remoção de tártaro, jato de bicarbonato, polimento coronário e aplicação de flúor.', image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=500&auto=format&fit=crop&q=60' },
+        { id: 'p502', name: 'Clareamento a Laser', price: 450.00, type: 'servico', category: 'Estética', duration: 60, desc: 'Sessão de clareamento em consultório com gel ativado a laser para dentes mais brancos.', image: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=500&auto=format&fit=crop&q=60' },
+        { id: 'p503', name: 'Restauração de Resina', price: 150.00, type: 'servico', category: 'Clínica', duration: 45, desc: 'Procedimento para remoção de cáries e restauração estética com resina fotopolimerizável.', image: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=500&auto=format&fit=crop&q=60' },
+        { id: 'p504', name: 'Consulta de Avaliação', price: 80.00, type: 'servico', category: 'Prevenção', duration: 30, desc: 'Consulta clínica inicial para diagnóstico, plano de tratamento e raio-X simples.', image: 'https://images.unsplash.com/photo-1579684389782-64d84b5e901a?w=500&auto=format&fit=crop&q=60' },
+        { id: 'p505', name: 'Fio Dental Premium (Kit)', price: 12.00, type: 'produto', category: 'Higiene', desc: 'Kit contendo 2 rolos de fio dental encerado sabor menta (50 metros cada).', image: 'https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=500&auto=format&fit=crop&q=60' }
+      ];
+
+      customers = [
+        { id: 'c501', name: 'Roberto Antunes', phone: '11999990000', email: 'roberto@email.com', ordersCount: 1, totalSpent: 120.00 },
+        { id: 'c502', name: 'Patricia Lima', phone: '11977770000', email: 'patricia@email.com', ordersCount: 1, totalSpent: 450.00 }
+      ];
+
+      orders = [
+        {
+          id: 'o501',
+          customerName: 'Roberto Antunes',
+          customerPhone: '11999990000',
+          type: 'agendamento',
+          status: 'Pronto',
+          date: today,
+          time: '09:00',
+          medicalInsurance: 'Unimed',
+          patientCpf: '123.456.789-00',
+          items: [
+            { id: 'p501', name: 'Limpeza Profilaxia', price: 120.00, quantity: 1 }
+          ],
+          total: 120.00,
+          notes: ''
+        },
+        {
+          id: 'o502',
+          customerName: 'Patricia Lima',
+          customerPhone: '11977770000',
+          type: 'agendamento',
+          status: 'Pendente',
+          date: tomorrow,
+          time: '14:00',
+          medicalInsurance: 'Particular',
+          patientCpf: '987.654.321-11',
+          items: [
+            { id: 'p502', name: 'Clareamento a Laser', price: 450.00, quantity: 1 }
+          ],
+          total: 450.00,
+          notes: 'Paciente sensível a dor.'
+        }
+      ];
+
     } else {
       // Padrão: Beleza / Barbearia
       config = {
@@ -282,7 +397,7 @@ class Store {
       products = [
         { id: 'p1', name: 'Corte Degradê', price: 35.00, type: 'servico', category: 'Cortes', duration: 30, desc: 'Corte moderno degradê com acabamento premium e lavagem.', image: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&auto=format&fit=crop&q=60' },
         { id: 'p2', name: 'Barba Completa', price: 30.00, type: 'servico', category: 'Barba', duration: 20, desc: 'Modelagem de barba na navalha com toalha quente e óleos hidratantes.', image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&auto=format&fit=crop&q=60' },
-        { id: 'p3', name: 'Corte + Barba', price: 60.00, type: 'servico', category: 'Combo', duration: 50, desc: 'Combo completo de cabelo e barba com desconto especial.', image: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=500&auto=format&fit=crop&q=60' },
+        { id: 'p3', name: 'Corte + Barba', price: 60.00, type: 'servico', category: 'Combo', duration: 50, desc: 'Combo completo de cabelo e barba com desconto especial.', image: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1200&auto=format&fit=crop&q=80' },
         { id: 'p4', name: 'Limpeza de Pele', price: 50.00, type: 'servico', category: 'Outros', duration: 40, desc: 'Esfoliação, extração de cravos e máscara hidratante calmante.', image: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=500&auto=format&fit=crop&q=60' },
         { id: 'p5', name: 'Sobrancelha Navalha', price: 15.00, type: 'servico', category: 'Outros', duration: 15, desc: 'Desenho e alinhamento de sobrancelha na navalha.', image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&auto=format&fit=crop&q=60' }
       ];
