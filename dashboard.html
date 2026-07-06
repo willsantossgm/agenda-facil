@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo - AgendaFácil</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="logo-container">
+        <div class="logo-icon">AF</div>
+        <span class="logo-text">AgendaFácil</span>
+      </div>
+
+      <nav>
+        <ul class="nav-list">
+          <li>
+            <a class="nav-link active" data-tab="inicio">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              Início
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" data-tab="catalogo">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+              Catálogo
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" data-tab="agenda">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              Agenda
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" data-tab="pedidos">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              Pedidos
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" data-tab="clientes">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              Clientes (CRM)
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" data-tab="configuracoes">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+              Configurações
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="loja.html" target="_blank" class="btn btn-outline btn-sm btn-full">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Visualizar Loja
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Top Header Bar -->
+      <header class="header-bar">
+        <div>
+          <h2 id="view-title">Dashboard</h2>
+          <p id="view-subtitle" class="text-dim">Estatísticas gerais do seu negócio</p>
+        </div>
+        <div class="flex align-center gap-4">
+          <span id="business-badge-name" class="badge badge-info" style="font-size: 0.85rem;">Carregando...</span>
+          <button class="btn btn-outline btn-sm" id="btn-toggle-menu" style="display: none;">Menu</button>
+        </div>
+      </header>
+
+      <!-- SEÇÕES DINÂMICAS -->
+
+      <!-- 1. INÍCIO (DASHBOARD GENERAL) -->
+      <section id="section-inicio" class="dashboard-view active">
+        <!-- KPIs Grid -->
+        <div class="kpis-grid">
+          <div class="card kpi-card">
+            <div class="kpi-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+            </div>
+            <div class="kpi-info">
+              <span class="kpi-title">Faturamento Total</span>
+              <span class="kpi-value" id="kpi-revenue">R$ 0,00</span>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon-wrapper" style="background: rgba(124, 58, 237, 0.1); color: var(--primary-light);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </div>
+            <div class="kpi-info">
+              <span class="kpi-title">Pedidos / Vendas</span>
+              <span class="kpi-value" id="kpi-orders">0</span>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon-wrapper" style="background: rgba(236, 72, 153, 0.1); color: var(--secondary);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="kpi-info">
+              <span class="kpi-title">Clientes Únicos</span>
+              <span class="kpi-value" id="kpi-customers">0</span>
+            </div>
+          </div>
+          <div class="card kpi-card">
+            <div class="kpi-icon-wrapper" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="kpi-info">
+              <span class="kpi-title">Agendamentos Hoje</span>
+              <span class="kpi-value" id="kpi-bookings">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts e Pedidos Rápidos -->
+        <div class="charts-section">
+          <!-- Gráfico -->
+          <div class="card flex flex-col justify-between" style="min-height: 320px;">
+            <div class="flex justify-between align-center" style="margin-bottom: 1.5rem;">
+              <h3 style="font-size: 1.15rem;">Vendas Recentes (Últimos 7 dias)</h3>
+              <span class="text-dim" style="font-size: 0.85rem;">Faturamento Diário</span>
+            </div>
+            <div class="flex-1 flex justify-center align-center">
+              <canvas id="revenue-chart" style="width: 100%; height: 220px;"></canvas>
+            </div>
+          </div>
+
+          <!-- Mini Pedidos Recentes -->
+          <div class="card flex flex-col">
+            <h3 style="font-size: 1.15rem; margin-bottom: 1.5rem;">Pedidos Recentes</h3>
+            <div class="flex flex-col gap-4" id="recent-orders-list" style="overflow-y: auto; max-height: 250px;">
+              <!-- Injetado dinamicamente -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. CATALOGO (PRODUTOS / SERVIÇOS) -->
+      <section id="section-catalogo" class="dashboard-view" style="display: none;">
+        <div class="catalog-header">
+          <div class="flex gap-2">
+            <button class="category-pill active" id="catalog-filter-all">Todos</button>
+            <button class="category-pill" id="catalog-filter-produtos">Produtos</button>
+            <button class="category-pill" id="catalog-filter-servicos">Serviços</button>
+          </div>
+          <button class="btn btn-primary" id="btn-add-item">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Novo Item
+          </button>
+        </div>
+
+        <div class="catalog-grid" id="catalog-grid-items">
+          <!-- Injetado dinamicamente -->
+        </div>
+      </section>
+
+      <!-- 3. AGENDA (CALENDÁRIO ADMINISTRATIVO) -->
+      <section id="section-agenda" class="dashboard-view" style="display: none;">
+        <div class="calendar-wrapper">
+          <!-- Calendário -->
+          <div class="card">
+            <div class="calendar-header">
+              <button class="btn btn-ghost btn-sm" id="btn-prev-month">◀</button>
+              <h3 id="calendar-month-year" style="font-size:1.15rem;">Janeiro 2026</h3>
+              <button class="btn btn-ghost btn-sm" id="btn-next-month">▶</button>
+            </div>
+            <div class="calendar-grid" id="calendar-days-container">
+              <!-- Grid renderizado no JavaScript -->
+            </div>
+          </div>
+
+          <!-- Compromissos do Dia -->
+          <div class="card flex flex-col">
+            <div class="flex justify-between align-center" style="margin-bottom: 1.5rem;">
+              <h3 style="font-size: 1.15rem;">Compromissos</h3>
+              <span id="selected-agenda-date" class="badge badge-info">Hoje</span>
+            </div>
+            <div class="booking-slots-list" id="agenda-slots-list">
+              <!-- Injetado dinamicamente -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. PEDIDOS (KNBAN / LISTA COMPLETA) -->
+      <section id="section-pedidos" class="dashboard-view" style="display: none;">
+        <div class="card p-0" style="overflow: hidden;">
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Pedido</th>
+                  <th>Cliente</th>
+                  <th>Tipo</th>
+                  <th>Data/Hora</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th class="text-center">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="orders-table-body">
+                <!-- Injetado dinamicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. CLIENTES (CRM) -->
+      <section id="section-clientes" class="dashboard-view" style="display: none;">
+        <div class="card p-0" style="overflow: hidden;">
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Contato (WhatsApp)</th>
+                  <th>E-mail</th>
+                  <th>Pedidos Feitos</th>
+                  <th>Total Gasto</th>
+                </tr>
+              </thead>
+              <tbody id="customers-table-body">
+                <!-- Injetado dinamicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. CONFIGURAÇÕES -->
+      <section id="section-configuracoes" class="dashboard-view" style="display: none;">
+        <div class="card" style="max-width: 650px;">
+          <form id="form-config">
+            <div class="form-group">
+              <label class="form-label" for="config-name">Nome do Estabelecimento</label>
+              <input type="text" class="form-input" id="config-name" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="config-type">Tipo de Estabelecimento</label>
+              <select class="form-input form-select" id="config-type" required>
+                <option value="barbearia">Serviços / Barbearia / Salão</option>
+                <option value="lanchonete">Alimentação / Lanchonete / Delivery</option>
+                <option value="ambos">Ambos (Serviços e Venda de Lanches/Produtos)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="config-whatsapp">WhatsApp (com DDD)</label>
+              <input type="text" class="form-input" id="config-whatsapp" placeholder="Ex: 11988887777" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="config-address">Endereço Completo</label>
+              <input type="text" class="form-input" id="config-address" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="config-hours">Horário de Funcionamento</label>
+              <input type="text" class="form-input" id="config-hours" placeholder="Ex: Seg a Sáb das 09:00 às 20:00" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Imagem de Capa (URL)</label>
+              <input type="url" class="form-input" id="config-cover-url" placeholder="URL da Imagem Unsplash">
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Salvar Configurações</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- MODAL DE CADASTRO/EDIÇÃO DE ITEM NO CATÁLOGO -->
+  <div class="modal-overlay" id="product-modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header flex justify-between align-center">
+        <h3 id="modal-product-title">Adicionar Item</h3>
+        <button class="btn btn-ghost btn-sm" id="btn-close-product-modal" style="padding: 0.25rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="form-product">
+        <div class="modal-body">
+          <input type="hidden" id="product-id-field">
+          
+          <div class="form-group">
+            <label class="form-label" for="product-name-field">Nome do Item</label>
+            <input type="text" class="form-input" id="product-name-field" placeholder="Ex: Hambúrguer, Corte Degradê" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="product-type-field">Tipo</label>
+            <select class="form-input form-select" id="product-type-field" required>
+              <option value="produto">Produto (Venda simples / Delivery)</option>
+              <option value="servico">Serviço (Requer agendamento de horário)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="product-category-field">Categoria</label>
+            <input type="text" class="form-input" id="product-category-field" placeholder="Ex: Lanches, Cortes, Barba" required>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="form-group flex-1">
+              <label class="form-label" for="product-price-field">Preço (R$)</label>
+              <input type="number" step="0.01" class="form-input" id="product-price-field" placeholder="0.00" required>
+            </div>
+
+            <div class="form-group flex-1" id="product-duration-group">
+              <label class="form-label" for="product-duration-field">Duração (minutos)</label>
+              <input type="number" class="form-input" id="product-duration-field" value="30" placeholder="30">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="product-desc-field">Descrição</label>
+            <textarea class="form-input" id="product-desc-field" placeholder="Breve descrição dos ingredientes ou do serviço..." rows="3" style="resize:none;"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Imagem do Item</label>
+            <div class="file-upload-wrapper">
+              <img src="" class="file-upload-preview" id="product-img-preview" style="display:none;">
+              <span id="file-upload-placeholder" class="text-dim text-center" style="font-size:0.875rem;">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-bottom:0.25rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><br>
+                Clique para carregar imagem
+              </span>
+              <input type="file" accept="image/*" class="file-upload-input" id="product-file-input">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="btn-cancel-product-modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-product-modal">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/orders.js"></script>
+  <script src="js/customers.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

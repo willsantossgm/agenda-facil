@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgendaFácil — Gestão e Agendamentos para Microempreendedores</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+  <!-- Orbes decorativas no fundo -->
+  <div class="bg-orb bg-orb-primary"></div>
+  <div class="bg-orb bg-orb-secondary"></div>
+
+  <!-- Cabeçalho -->
+  <header class="landing-header">
+    <div class="landing-header-container flex justify-between align-center">
+      <div class="brand">
+        <div class="brand-symbol">AF</div>
+        <span>AgendaFácil</span>
+      </div>
+      
+      <nav class="flex align-center gap-6" style="display: none; display: md-flex;">
+        <a href="#features" style="font-weight:500; color:var(--text-muted);">Funcionalidades</a>
+        <a href="#pricing" style="font-weight:500; color:var(--text-muted);">Preços</a>
+        <a href="#faq" style="font-weight:500; color:var(--text-muted);">FAQ</a>
+      </nav>
+
+      <div class="flex gap-2">
+        <a href="dashboard.html" class="btn btn-outline btn-sm">Painel Admin</a>
+        <a href="loja.html" class="btn btn-primary btn-sm">Ver Vitrine Demo</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-badge animate-fade-in">
+        🚀 Transforme seu pequeno negócio
+      </div>
+      <h1 class="hero-title animate-fade-in" style="animation-delay: 0.1s;">
+        Gerencie seu negócio<br>em um só lugar
+      </h1>
+      <p class="hero-subtitle animate-fade-in" style="animation-delay: 0.2s;">
+        Cardápio digital, agendamento de serviços, vendas e relatórios automáticos. Feito sob medida para lanchonetes, barbearias, salões e profissionais autônomos.
+      </p>
+      
+      <div class="flex justify-center gap-4 animate-fade-in" style="animation-delay: 0.3s;">
+        <a href="dashboard.html" class="btn btn-primary btn-lg">Comece Grátis</a>
+        <a href="loja.html" class="btn btn-outline btn-lg">Acessar Loja Demonstrativa</a>
+      </div>
+
+      <!-- Mockups Flutuantes -->
+      <div class="hero-mockups animate-fade-in" style="animation-delay: 0.4s;">
+        <div class="card floating-mock">
+          <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 0.5rem; text-align: left;">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--primary-light);">CARDÁPIO DIGITAL</span>
+          </div>
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&auto=format&fit=crop&q=60" alt="Hambúrguer" style="border-radius:var(--radius-sm); width:100%; height:120px; object-fit:cover; margin-bottom:0.5rem;">
+          <div class="flex justify-between align-center" style="font-size: 0.85rem; font-weight:600;">
+            <span>Smash Burger</span>
+            <span class="text-secondary">R$ 28,90</span>
+          </div>
+          <p class="text-dim text-center" style="font-size: 0.75rem; margin-top: 0.5rem;">Carrinho integrado + Checkout WhatsApp</p>
+        </div>
+
+        <div class="card floating-mock">
+          <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 0.5rem; text-align: left;">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--secondary);">AGENDA DE SERVIÇOS</span>
+          </div>
+          <div class="flex flex-col gap-2" style="font-size:0.8rem; text-align:left;">
+            <div class="flex align-center justify-between p-2" style="background:rgba(255,255,255,0.03); border-radius:var(--radius-sm);">
+              <span>💇 Corte Degradê</span>
+              <span class="badge badge-success" style="font-size: 0.55rem;">14:30</span>
+            </div>
+            <div class="flex align-center justify-between p-2" style="background:rgba(255,255,255,0.03); border-radius:var(--radius-sm);">
+              <span>🧔 Barba Completa</span>
+              <span class="badge badge-warning" style="font-size: 0.55rem;">15:30</span>
+            </div>
+          </div>
+          <p class="text-dim text-center" style="font-size: 0.75rem; margin-top: 0.5rem;">Seleção inteligente de slots livres</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Funcionalidades -->
+  <section class="section" id="features">
+    <div class="section-header reveal">
+      <h2 class="section-title">Tudo o que seu negócio precisa</h2>
+      <p class="text-muted">Simples de configurar, poderoso para vender e prático para gerenciar.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="card card-hover feature-card reveal">
+        <div class="feature-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </div>
+        <h3>Catálogo & Pedidos Online</h3>
+        <p>Tenha um catálogo de lanches ou catálogo de produtos totalmente interativo com carrinho e finalização via WhatsApp.</p>
+      </div>
+
+      <div class="card card-hover feature-card reveal">
+        <div class="feature-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Agendamentos de Horários</h3>
+        <p>Seus clientes marcam cortes de cabelo, serviços de estética ou qualquer atendimento diretamente pela web sem complicação.</p>
+      </div>
+
+      <div class="card card-hover feature-card reveal">
+        <div class="feature-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+        </div>
+        <h3>Painel de Analytics & Gráficos</h3>
+        <p>Acompanhe suas vendas e faturamento através de gráficos limpos e KPIs que mostram a saúde financeira da sua empresa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preços -->
+  <section class="section" id="pricing">
+    <div class="section-header reveal">
+      <h2 class="section-title">Preços Simples e Transparentes</h2>
+      <p class="text-muted">Escolha o plano ideal para alavancar seu negócio e ganhar dinheiro.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Grátis -->
+      <div class="card price-card reveal">
+        <div class="price-name">Começo Rápido</div>
+        <div class="price-value">R$ 0<span>/mês</span></div>
+        <ul class="price-features">
+          <li>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            1 catálogo de produtos
+          </li>
+          <li>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Até 30 pedidos por mês
+          </li>
+          <li>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Link público integrado
+          </li>
+        </ul>
+        <a href="dashboard.html" class="btn btn-outline btn-full">Começar Agora</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="card price-card popular reveal">
+        <div class="price-name" style="color:var(--primary-light);">Plano Pro</div>
+        <div class="price-value">R$ 49,90<span>/mês</span></div>
+        <ul class="price-features">
+          <li>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Catálogo e serviços ilimitados
+          </li>
+          <li>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Agendamentos automáticos
+          </li>
+          <li>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Relatórios e gráficos básicos
+          </li>
+          <li>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            CRM de Clientes básico
+          </li>
+        </ul>
+        <a href="dashboard.html" class="btn btn-primary btn-full">Escolher Plano Pro</a>
+      </div>
+
+      <!-- Premium -->
+      <div class="card price-card reveal">
+        <div class="price-name">Plano Premium</div>
+        <div class="price-value">R$ 99,90<span>/mês</span></div>
+        <ul class="price-features">
+          <li>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Tudo do Pro + Suporte VIP
+          </li>
+          <li>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Analytics avançado de vendas
+          </li>
+          <li>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Múltiplos profissionais/colaboradores
+          </li>
+        </ul>
+        <a href="dashboard.html" class="btn btn-outline btn-full">Contratar Premium</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="section-header reveal">
+      <h2 class="section-title">Perguntas Frequentes</h2>
+      <p class="text-muted">Tire suas dúvidas rápidas sobre a plataforma.</p>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          Como recebo o dinheiro das vendas?
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>Os pedidos e agendamentos chegam organizados no seu WhatsApp e Painel Admin. O pagamento pode ser feito diretamente na entrega, na realização do serviço (dinheiro, cartão ou PIX), ou via link de pagamento que você enviar para o cliente.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          Preciso baixar algum aplicativo?
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>Não! A plataforma AgendaFácil roda 100% no navegador (celular, tablet ou computador). Funciona de maneira otimizada e rápida, permitindo adicionar um atalho na tela inicial do celular como um aplicativo.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          Posso usar para barbearia e lanchonete ao mesmo tempo?
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>Sim! Você pode cadastrar tanto serviços (cortes, barbas com horários selecionados) quanto produtos físicos (lanches, bebidas com carrinho de entrega). Nossa loja se adapta ao tipo do item adicionado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="landing-footer">
+    <div class="footer-container">
+      <div class="brand">
+        <div class="brand-symbol">AF</div>
+        <span>AgendaFácil</span>
+      </div>
+      <p class="text-dim" style="font-size:0.875rem;">&copy; 2026 AgendaFácil. Todos os direitos reservados. Feito com ❤️ para microempreendedores.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/landing.js"></script>
+</body>
+</html>

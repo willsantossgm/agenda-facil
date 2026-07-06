@@ -1,0 +1,81 @@
+/* variables.css - Design Tokens da plataforma AgendaFácil */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Cores Principais */
+  --primary: #7C3AED;       /* Roxo Violeta */
+  --primary-hover: #6D28D9;
+  --primary-light: #A78BFA;
+  --primary-glow: rgba(124, 58, 237, 0.4);
+  
+  --secondary: #EC4899;     /* Rosa Neon */
+  --secondary-hover: #DB2777;
+  --secondary-glow: rgba(236, 72, 153, 0.3);
+
+  --accent: #8B5CF6;        /* Roxo Acento */
+
+  /* Cores de Feedback */
+  --success: #10B981;       /* Verde Sucesso */
+  --success-glow: rgba(16, 185, 129, 0.2);
+  --warning: #F59E0B;       /* Laranja Alerta */
+  --warning-glow: rgba(245, 158, 11, 0.2);
+  --danger: #EF4444;        /* Vermelho Erro/Perigo */
+  --danger-glow: rgba(239, 68, 68, 0.2);
+  --info: #3B82F6;          /* Azul Informativo */
+
+  /* Tons de Fundo (Dark Mode Padrão) */
+  --bg-main: #0B0816;       /* Fundo muito escuro com leve tom roxo */
+  --bg-card: rgba(20, 16, 38, 0.6);   /* Glassmorphism card */
+  --bg-card-hover: rgba(30, 25, 55, 0.85);
+  --bg-sidebar: rgba(13, 9, 28, 0.95);
+  --bg-overlay: rgba(5, 3, 10, 0.8);
+  
+  /* Bordas e Divisores */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(124, 58, 237, 0.3);
+  --border-focus: rgba(124, 58, 237, 0.6);
+
+  /* Texto */
+  --text-main: #F3F4F6;     /* Branco acinzentado de alta legibilidade */
+  --text-muted: #9CA3AF;    /* Cinza médio para descrições */
+  --text-dim: #6B7280;      /* Cinza escuro para detalhes menores */
+  --text-inverse: #0B0816;  /* Texto escuro em botões claros */
+
+  /* Fontes */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+
+  /* Espaçamentos e Tamanhos */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Efeitos */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px var(--primary-glow);
+  --glass-blur: blur(16px);
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Suporte opcional ao tema claro se configurado pelo sistema */
+[data-theme="light"] {
+  --bg-main: #F9FAFB;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --bg-sidebar: #FFFFFF;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(124, 58, 237, 0.2);
+  
+  --text-main: #111827;
+  --text-muted: #4B5563;
+  --text-dim: #9CA3AF;
+  --text-inverse: #FFFFFF;
+}
